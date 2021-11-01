@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
-#SBATCH --cpus-per-task=1       # number of processors per task
+#SBATCH --cpus-per-task=5	# number of processors per task
 #SBATCH -J "rplhighpass-sort"   # job name
 
 ## /SBATCH -p general # partition (queue)
@@ -15,6 +15,7 @@
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 /data/miniconda3/bin/conda init
 source ~/.bashrc
+conda activate env1
 envarg=`/data/src/PyHipp/envlist.py`
 conda activate $envarg
 
@@ -27,7 +28,6 @@ from PyHipp import export_mountain_cells; \
 export_mountain_cells.export_mountain_cells(); \
 print(time.localtime());"
 
-
-conda deactivate 
-/data/src/PyHipp/envlist.py $envarg
+conda deactivate
+python /data/src/PyHipp/envlist.py $envarg
 
